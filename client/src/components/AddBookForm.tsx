@@ -43,6 +43,7 @@ export function AddBookForm() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": "Bearer 12345-this-is-secret-token"
         },
         body: JSON.stringify({
           query: `
@@ -132,8 +133,8 @@ export function AddBookForm() {
             <FormItem>
               <FormLabel>Publication Year</FormLabel>
               <FormControl>
-                <Input 
-                  type="number" 
+                <Input
+                  type="number"
                   placeholder="Enter publication year"
                   min="1000"
                   max={new Date().getFullYear()}
@@ -148,8 +149,8 @@ export function AddBookForm() {
           )}
         />
 
-        <Button 
-          type="submit" 
+        <Button
+          type="submit"
           disabled={createBookMutation.isPending}
         >
           {createBookMutation.isPending ? "Adding..." : "Add Book"}

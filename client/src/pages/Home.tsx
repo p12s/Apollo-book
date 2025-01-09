@@ -29,6 +29,7 @@ export default function Home() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer 12345-this-is-secret-token'
         },
         body: JSON.stringify({
           query: `
@@ -44,12 +45,15 @@ export default function Home() {
         }),
       });
       const result = await response.json();
+      if (result.errors) {
+        throw new Error(result.errors[0].message);
+      }
       return result.data.books;
     },
   });
 
   if (isLoading) return <div className="p-4">Loading books...</div>;
-  if (error) return <div className="p-4 text-red-500">Error loading books</div>;
+  if (error) return <div className="p-4 text-red-500">Error loading books: {error.message}</div>;
 
   return (
     <div className="container mx-auto p-4">

@@ -19,6 +19,7 @@ export function BookDetails({ bookId }: BookDetailsProps) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer 12345-this-is-secret-token'
         },
         body: JSON.stringify({
           query: `
@@ -36,7 +37,7 @@ export function BookDetails({ bookId }: BookDetailsProps) {
           }
         }),
       });
-      
+
       const result = await response.json();
       if (result.errors) {
         throw new Error(result.errors[0].message);
