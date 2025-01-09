@@ -16,5 +16,15 @@ export const resolvers = {
         throw new Error(error instanceof Error ? error.message : "Unknown error occurred");
       }
     }
+  },
+  Mutation: {
+    createBook: (_: any, { input }: { input: Omit<Book, 'id'> }): Book => {
+      const newBook: Book = {
+        id: String(books.length + 1),
+        ...input
+      };
+      books.push(newBook);
+      return newBook;
+    }
   }
 };
