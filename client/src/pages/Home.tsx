@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AddBookForm } from "@/components/AddBookForm";
 import { BookDetails } from "@/components/BookDetails";
+import { BookSearch } from "@/components/BookSearch";
 import {
   Dialog,
   DialogContent,
@@ -52,6 +53,11 @@ export default function Home() {
 
   return (
     <div className="container mx-auto p-4">
+      {/* Book Search Section */}
+      <div className="mb-8">
+        <BookSearch />
+      </div>
+
       <div className="grid gap-8 md:grid-cols-2">
         {/* Add Book Form Section */}
         <div>
