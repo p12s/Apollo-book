@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { AddBookForm } from "@/components/AddBookForm";
 
 interface Book {
   id: string;
@@ -40,19 +41,34 @@ export default function Home() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Books Library</h1>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {books?.map((book) => (
-          <Card key={book.id}>
-            <CardHeader>
-              <CardTitle>{book.title}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-gray-600">Author: {book.author}</p>
-              <p className="text-sm text-gray-600">Year: {book.year}</p>
+      <div className="grid gap-8 md:grid-cols-2">
+        {/* Add Book Form Section */}
+        <div>
+          <h2 className="text-2xl font-bold mb-4">Add New Book</h2>
+          <Card>
+            <CardContent className="pt-6">
+              <AddBookForm />
             </CardContent>
           </Card>
-        ))}
+        </div>
+
+        {/* Books List Section */}
+        <div>
+          <h2 className="text-2xl font-bold mb-4">Books Library</h2>
+          <div className="grid gap-4">
+            {books?.map((book) => (
+              <Card key={book.id}>
+                <CardHeader>
+                  <CardTitle>{book.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-gray-600">Author: {book.author}</p>
+                  <p className="text-sm text-gray-600">Year: {book.year}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
