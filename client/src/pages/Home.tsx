@@ -1,6 +1,15 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { AddBookForm } from "@/components/AddBookForm";
+import { BookDetails } from "@/components/BookDetails";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface Book {
   id: string;
@@ -10,6 +19,8 @@ interface Book {
 }
 
 export default function Home() {
+  const [selectedBookId, setSelectedBookId] = useState<string | null>(null);
+
   const { data: books, isLoading, error } = useQuery<Book[]>({
     queryKey: ['/api/graphql'],
     queryFn: async () => {
@@ -57,7 +68,8 @@ export default function Home() {
           <h2 className="text-2xl font-bold mb-4">Books Library</h2>
           <div className="grid gap-4">
             {books?.map((book) => (
-              <Card key={book.id}>
+              <Card key={book.id} className="cursor-pointer hover:shadow-md transition-shadow"
+                onClick={() => setSelectedBookId(book.id)}>
                 <CardHeader>
                   <CardTitle>{book.title}</CardTitle>
                 </CardHeader>
@@ -70,6 +82,15 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <Dialog open={!!selectedBookId} onOpenChange={() => setSelectedBookId(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Book Details</DialogTitle>
+          </DialogHeader>
+          {selectedBookId && <BookDetails bookId={selectedBookId} />}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
